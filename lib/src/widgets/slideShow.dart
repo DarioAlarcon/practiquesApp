@@ -24,7 +24,7 @@ const SlidesShow({
        child: Center(
             child:Builder(
               builder: (BuildContext context) {
-  WidgetsBinding.instance?.addPostFrameCallback((_) {
+  WidgetsBinding.instance.addPostFrameCallback((_) {
     Provider.of<_SlideshowModel>(context, listen: false).ColorPrimario = colorPrim;
     Provider.of<_SlideshowModel>(context, listen: false).Colorsecundario = colorSecu;
   });
