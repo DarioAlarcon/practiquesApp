@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../theme/theme_changer.dart';
 
 class SliverListaPage extends StatelessWidget {
-  const SliverListaPage({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +29,7 @@ class _bottomNewList extends StatelessWidget {
         minWidth: size.width * 0.9,
         child: ElevatedButton(onPressed: (){},
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.amber),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
       RoundedRectangleBorder(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(50)), // Cambia el radio de la esquina para ajustar la forma
@@ -54,24 +56,30 @@ class _bottomNewList extends StatelessWidget {
 
 class _MainScroll extends StatelessWidget {
   final items = [
-    _listItem( 'Orange', Color(0xffF08F66) ),
-    _listItem( 'Family', Color(0xffF2A38A) ),
-    _listItem( 'Subscriptions', Color(0xffF7CDD5) ),
+    _listItem( 'Orange', Color.fromARGB(255, 255, 216, 75) ),
+    _listItem( 'Family', Color.fromARGB(255, 255, 221, 99) ),
+    _listItem( 'Subscriptions', Color.fromARGB(255, 252, 226, 134) ),
     _listItem( 'Books', Color(0xffFCEBAF) ),
-    _listItem( 'Orange', Color(0xffF08F66) ),
-    _listItem( 'Family', Color(0xffF2A38A) ),
-    _listItem( 'Subscriptions', Color(0xffF7CDD5) ),
+    _listItem( 'Orange', Color.fromARGB(255, 255, 216, 75) ),
+    _listItem( 'Family', Color.fromARGB(255, 255, 221, 99) ),
+    _listItem( 'Subscriptions', Color.fromARGB(255, 252, 226, 134) ),
     _listItem( 'Books', Color(0xffFCEBAF) ),
   ];
   @override
   Widget build(BuildContext context) {
+    final appThemete = Provider.of<ThemeChanger>(context);
     return CustomScrollView(
       physics: BouncingScrollPhysics(),
       slivers: [
         SliverPersistentHeader(
           floating: true,
           delegate: _sliverCustomHeader(
-            190, 200, Container(child: _titulo(), color: Colors.white,alignment: Alignment.centerLeft,)
+            190, 
+            200,
+            Container(
+              child: _titulo(), 
+              color: appThemete.currentTheme.scaffoldBackgroundColor,
+              alignment: Alignment.centerLeft,)
           )),
         SliverList(delegate: SliverChildListDelegate([...items, SizedBox(height: 100,)]))
       ],
@@ -112,12 +120,17 @@ class _titulo extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    final appThemete = Provider.of<ThemeChanger>(context);
     return Column(
       children: [
         SizedBox(height: 30,),
         Container(
           margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-          child: Text('NEW', style: TextStyle(color: Colors.brown, fontSize: 50, fontWeight: FontWeight.bold),),
+          child: Text('NEW', 
+          style: TextStyle(
+            color:(appThemete.darkTheme)? Colors.white: Colors.brown, 
+            fontSize: 50, 
+            fontWeight: FontWeight.bold),),
         ),
         Stack(
           children: [
@@ -130,7 +143,7 @@ class _titulo extends StatelessWidget {
               ),
             ),
             Container(
-              child: Text('List', style: TextStyle(color: Color(0xffd93a30),fontSize: 50, fontWeight: FontWeight.bold),),
+              child: Text('List', style: TextStyle(color: Colors.amber,fontSize: 50, fontWeight: FontWeight.bold),),
             ),
            
           ],
@@ -171,10 +184,16 @@ class _listItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appThemete = Provider.of<ThemeChanger>(context);
     return Container(
       alignment: Alignment.centerLeft,
       padding: EdgeInsets.all(30),
-      child: Text(this.titulo, style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
+      child: Text(
+        this.titulo, 
+        style: TextStyle(
+          color: appThemete.currentTheme.scaffoldBackgroundColor, 
+          fontSize: 20, 
+          fontWeight: FontWeight.bold),),
       height: 130,
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(

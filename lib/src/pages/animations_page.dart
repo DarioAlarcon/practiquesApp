@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:provider/provider.dart';
+
+import '../theme/theme_changer.dart';
+
 class AnimationsPage extends StatelessWidget {
   const AnimationsPage({super.key});
 
@@ -99,11 +103,12 @@ escalar = Tween(
 class _Rectangulo extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
+    final appThemete = Provider.of<ThemeChanger>(context);
     return Container(
        width: 70,
        height: 70,
        decoration: BoxDecoration(
-         color: Colors.blue
+         color: (appThemete.darkTheme)? Colors.amberAccent:Colors.amber
        ),
      );
    }

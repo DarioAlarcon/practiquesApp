@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../theme/theme_changer.dart';
 import '../widgets/radial_progress.dart';
 
 class circularGraphics extends StatefulWidget {
-  const circularGraphics ({super.key});
-
+ 
   @override
   State<circularGraphics> createState() => _circularGraphicsState();
 }
@@ -13,9 +14,14 @@ class _circularGraphicsState extends State<circularGraphics> {
   double porcentaje=0.0;
   @override
   Widget build(BuildContext context) {
+    final appThemete = Provider.of<ThemeChanger>(context);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.refresh),
+        backgroundColor: (appThemete.darkTheme)? Colors.amberAccent: Colors.amber,
+        child: Icon(
+          Icons.refresh,
+          color: (appThemete.darkTheme)?Colors.black: Colors.white,
+          ),
         onPressed:(){
           setState(() {
             porcentaje += 10;
@@ -31,14 +37,14 @@ class _circularGraphicsState extends State<circularGraphics> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-            customRadialProgress(porcentaje: porcentaje, colores: Colors.redAccent,),
+            customRadialProgress(porcentaje: porcentaje*0.4, colores: Colors.deepPurpleAccent,),
             customRadialProgress(porcentaje: porcentaje, colores: Colors.blueAccent)
           ],),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-            customRadialProgress(porcentaje: porcentaje, colores: Colors.yellowAccent,),
-            customRadialProgress(porcentaje: porcentaje, colores: Colors.orangeAccent,)
+            customRadialProgress(porcentaje: porcentaje*0.6, colores: Colors.redAccent,),
+            customRadialProgress(porcentaje: porcentaje*0.2, colores: Colors.orangeAccent,)
           ],)
         ],
         )
@@ -55,13 +61,14 @@ class customRadialProgress extends StatelessWidget {
   final Color colores;
   @override
   Widget build(BuildContext context) {
+    final appThemete = Provider.of<ThemeChanger>(context);
     return Container(
-      width: 300,
-      height: 300,
+      width: 200,
+      height: 200,
       //color: Colors.amber,
       child: RadialProgress(porcentaje: porcentaje,
       colorPrim: colores,
-      colorSecu: Colors.black,
+      colorSecu: (appThemete.darkTheme)? Colors.white:Colors.black,
       grosorsecu: 12.0,),
     );
   }

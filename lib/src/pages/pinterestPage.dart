@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
+import 'package:udemypractiques/src/theme/theme_changer.dart';
 
 import '../widgets/pinterestMenu.dart';
 class pinterestPage extends StatelessWidget {
@@ -33,6 +34,8 @@ class _pinterestmenuLocation extends StatelessWidget {
   final widthPantalla = MediaQuery.of(context).size.width;
   
   final mostrar = Provider.of<_MenuModel>(context).mostrar;
+  final appTheme = Provider.of<ThemeChanger>(context).currentTheme; 
+  final appThemete = Provider.of<ThemeChanger>(context);
     return Positioned(
       bottom: 30,
       child: Container(
@@ -40,9 +43,9 @@ class _pinterestmenuLocation extends StatelessWidget {
         child: Align(
           child: pinterestMenu(
             mostrar: mostrar,
-            backgroundColor: Colors.black,
-            inactiveColor: Colors.white,
-            activeColor: Colors.redAccent, 
+            backgroundColor: appTheme.scaffoldBackgroundColor,
+            inactiveColor: (appThemete.darkTheme)? Colors.white : Colors.black ,
+            activeColor: (appThemete.darkTheme)? Colors.amberAccent : Colors.amber, 
             items: [
                 pinterestButton(icon: Icons.pie_chart,onPressed: (){ print('Icon pie_chart');}),
                 pinterestButton(icon: Icons.search,onPressed: (){ print('Icon search');}),

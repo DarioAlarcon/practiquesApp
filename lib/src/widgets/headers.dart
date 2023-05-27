@@ -239,7 +239,7 @@ class _HeaderWavePainter extends CustomPainter {
     final lapiz = new Paint();
 
     // Propiedades
-    lapiz.color = Color(0xff615AAB);
+    lapiz.color = Colors.amberAccent;
     lapiz.style = PaintingStyle.fill; // .fill .stroke
     lapiz.strokeWidth = 20;
 

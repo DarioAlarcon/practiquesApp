@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
-//import 'package:udemypractiques/src/pages/emergency_page.dart';
-//import 'package:udemypractiques/src/pages/final_slideShow_page.dart';
-//import 'package:udemypractiques/src/pages/pinterestPage.dart';
-import 'package:udemypractiques/src/pages/sliver_list_page.dart';
-//import 'package:udemypractiques/src/pages/headers_page.dart';
-//import 'package:udemypractiques/src/pages/animations_page.dart';
-//import 'package:udemypractiques/src/challenge/animated_cuadrado_page.dart';
-//import 'package:udemypractiques/src/labs/circular_progress_page.dart';
-//import 'package:udemypractiques/src/pages/circular_graphics_page.dart';
-//import 'package:udemypractiques/src/labs/slideShow_page_lab.dart'; 
-
-void main() => runApp(MyApp());
+import 'package:provider/provider.dart';
+import 'package:udemypractiques/src/pages/launche_page.dart';
+import 'package:udemypractiques/src/theme/theme_changer.dart';
+void main() => runApp(
+  ChangeNotifierProvider(
+    create: (_) => new ThemeChanger(2),
+    child: MyApp()
+    )
+  );
  
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+     final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
     return MaterialApp(
+      theme: appTheme,
       debugShowCheckedModeBanner: false,
       title: 'Diseños App',
-      home: SliverListaPage()
+      home: LaunchePage()
     );
   }
 }
