@@ -31,29 +31,38 @@ class _pinterestmenuLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-  final widthPantalla = MediaQuery.of(context).size.width;
+  double widthPantalla = MediaQuery.of(context).size.width;
   
   final mostrar = Provider.of<_MenuModel>(context).mostrar;
   final appTheme = Provider.of<ThemeChanger>(context).currentTheme; 
   final appThemete = Provider.of<ThemeChanger>(context);
+
+  if(widthPantalla > 500){
+    widthPantalla = widthPantalla-300;
+  }
     return Positioned(
       bottom: 30,
       child: Container(
         width: widthPantalla,
-        child: Align(
-          child: pinterestMenu(
-            mostrar: mostrar,
-            backgroundColor: appTheme.scaffoldBackgroundColor,
-            inactiveColor: (appThemete.darkTheme)? Colors.white : Colors.black ,
-            activeColor: (appThemete.darkTheme)? Colors.amberAccent : Colors.amber, 
-            items: [
-                pinterestButton(icon: Icons.pie_chart,onPressed: (){ print('Icon pie_chart');}),
-                pinterestButton(icon: Icons.search,onPressed: (){ print('Icon search');}),
-                pinterestButton(icon: Icons.notifications,onPressed: (){ print('Icon notifications');}),
-                pinterestButton(icon: Icons.supervised_user_circle,onPressed: (){ print('Icon supervised_user_circle');})
-                   ],
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Spacer(),
+            pinterestMenu(
+              mostrar: mostrar,
+              backgroundColor: appTheme.scaffoldBackgroundColor,
+              inactiveColor: (appThemete.darkTheme)? Colors.white : Colors.black ,
+              activeColor: (appThemete.darkTheme)? Colors.amberAccent : Colors.amber, 
+              items: [
+                  pinterestButton(icon: Icons.pie_chart,onPressed: (){ print('Icon pie_chart');}),
+                  pinterestButton(icon: Icons.search,onPressed: (){ print('Icon search');}),
+                  pinterestButton(icon: Icons.notifications,onPressed: (){ print('Icon notifications');}),
+                  pinterestButton(icon: Icons.supervised_user_circle,onPressed: (){ print('Icon supervised_user_circle');})
+                     ],
 
-          ),
+            ),
+            Spacer()
+          ],
         ),
       )
     );

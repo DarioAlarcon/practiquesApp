@@ -19,6 +19,14 @@ class emergencyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    bool isLarge;
+    if(MediaQuery.of(context).size.height>550){
+      isLarge = true;
+    }else{
+      isLarge = false;
+    }
+
     final items = <ItemBoton>[
   new ItemBoton( Icons.car_crash, 'Motor Accident', Color(0xff6989F5), Color(0xff906EF5) ),
   new ItemBoton( Icons.add, 'Medical Emergency', Color(0xff66A9F2), Color(0xff536CF6) ),
@@ -48,7 +56,7 @@ List<Widget> itemMap = items.map(
       body: Stack(
         children: [
           Container(
-            margin: EdgeInsets.only(top: 290),
+            margin: EdgeInsets.only(top: (isLarge)? 290:10),
             child: ListView(
               physics: BouncingScrollPhysics(),
               children: [
@@ -58,27 +66,39 @@ List<Widget> itemMap = items.map(
           
             ),
           ),
-          Stack(
-            children: [
-              IconHeader(
-                icon: Icons.add, 
-                titulo: 'ASISTENCIA MEDICA', 
-                subTitulo: 'haz solicitado',
-                color1: Color(0xff536CF6),
-                color2: Color(0xff66A9F2),),
-                Positioned(
-                  right: 0,
-                  top: 45,
-                  child: RawMaterialButton(
-                    onPressed: (){},
-                    shape: CircleBorder(),
-                    child: Icon(Icons.more_vert, color: Colors.white,)
-                    )
-                    )
-            ],
-          ),
+          if(isLarge)
+          _encabezado(),
         ],
       )
+    );
+  }
+}
+
+class _encabezado extends StatelessWidget {
+  const _encabezado({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        IconHeader(
+          icon: Icons.add, 
+          titulo: 'ASISTENCIA MEDICA', 
+          subTitulo: 'haz solicitado',
+          color1: Color(0xff536CF6),
+          color2: Color(0xff66A9F2),),
+          Positioned(
+            right: 0,
+            top: 45,
+            child: RawMaterialButton(
+              onPressed: (){},
+              shape: CircleBorder(),
+              child: Icon(Icons.more_vert, color: Colors.white,)
+              )
+              )
+      ],
     );
   }
 }
